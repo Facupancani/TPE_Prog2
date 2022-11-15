@@ -115,7 +115,7 @@ public class listaOrdenada {
     			Nodo reco = raiz;
         		Nodo atras = raiz;
         		
-        		while((reco.info =! ocurrencia) && (reco.sig != null)){
+        		while((reco.info != ocurrencia) && (reco.sig != null)){
         			atras = reco;
         			reco = reco.sig;
         			pos ++;
@@ -125,6 +125,7 @@ public class listaOrdenada {
         		}
     		}
     	}
+		return -1;
     }
     
     //Elimina un alumno de la lista segun el dni dado
