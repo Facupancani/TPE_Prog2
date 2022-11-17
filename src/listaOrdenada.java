@@ -13,51 +13,58 @@ public class listaOrdenada {
         raiz = null;
     }
       
-    void insertar(Alumno nuevoAlumno)
-    {
-    	//Creo el nodo e inserto la informacion
+    
+    void insertar(Alumno nuevoAlumno){
+    	
+    	//Creo el nodo y le inserto la informacion
         Nodo nuevo = new Nodo ();
         nuevo.alumno = nuevoAlumno;
+        nuevo.info = 1;
+        System.out.println("se inserta a: " + nuevo.alumno.nombre);
 
         
-        //Reviso que la lista no este vacia
-        if (raiz==null) {
-            raiz=nuevo;
-        } else {
-        	//compareTo() devuelve 0 si las cadenas son iguales, -1 si la primera es menor y 1 si es mayor
-        	
+        //Si la lista esta vacia lo inserto en la raiz de la lista.
+        if (raiz == null) {
+            raiz = nuevo;
+            System.out.println("se inserta en el primer elemento");
+        } else if(raiz != null) {
+
         	//Reviso si tengo que insertarlo en el primer elemento
-            if ((nuevoAlumno.apellido.compareTo(raiz.alumno.apellido)) == -1) {
-                nuevo.sig=raiz;
-                raiz=nuevo;
-            } else {
-                Nodo reco = raiz;
-                Nodo atras = raiz;
-                // Entro en while hasta que encuentre la posicion o llegue al final de la lista
-                while ( ((nuevoAlumno.apellido.compareTo(reco.alumno.apellido)) == -1) && (reco.sig != null)) {
-                    atras=reco;
-                    reco=reco.sig;
-                }
-                
-                //Inserto el elemento al salir del while
-                
-                //si son iguales comparo por nombre
-                if ((nuevoAlumno.apellido.compareTo(reco.alumno.apellido)) == 0 ) {
-                	while((nuevoAlumno.apellido.compareTo(reco.alumno.apellido) == -1) && (reco.sig != null)){
-                		atras = reco;
-                		reco = reco.sig;
-                	}if((nuevoAlumno.apellido.compareTo(reco.alumno.apellido) == -1)){
-                		reco.sig = nuevo;
-                	}
-                }
-                
-                if ((nuevoAlumno.apellido.compareTo(reco.alumno.apellido)) == 1) {
-                    reco.sig = nuevo;
-                } else {
-                    nuevo.sig = reco;
-                    atras.sig = nuevo;
-                }
+            if ( raiz.alumno.comparar(nuevoAlumno) > 0) {
+                nuevo.sig = raiz;
+                raiz = nuevo;
+                return;
             }
+            
+		                Nodo reco = raiz;
+		                Nodo ant = reco;
+		                
+		                //Entro en while hasta que encuentre la posicion o llegue al final de la lista
+		                while ( (reco.alumno.comparar(nuevoAlumno) < 0) && (reco.sig != null) ) {
+		                	reco = reco.sig;
+		                }       
+		                
+		                if (reco.alumno.comparar(nuevoAlumno) > 0) {
+		                	nuevo.sig = ant.sig;
+		                	ant.sig = nuevo;
+		                	System.out.println("se inserta al encontrar un mayor");
+		                }
+		                
+		                if((reco.alumno.comparar(nuevoAlumno) < 0) && reco.sig == null){
+		                	reco.sig = nuevo;
+		                	System.out.println("se inserta al final de la lista");
+		                }
+		                
+		                
+		                //si encuentro apellidos iguales, ordeno por nombre
+		                if (reco.alumno.comparar(nuevoAlumno) == 0 ) {		
+		                	System.out.println("apellidos iguales");
+			                	while( (reco.alumno.comparar(nuevoAlumno) > 0) && (reco.sig != null)){
+			                		reco = reco.sig;
+			                	}
+			                	nuevo.sig = reco.sig;
+			                	reco.sig = nuevo;
+		                }	            
         }
     }
     
@@ -113,10 +120,8 @@ public class listaOrdenada {
     		}
     		else{
     			Nodo reco = raiz;
-        		Nodo atras = raiz;
         		
         		while((reco.info != ocurrencia) && (reco.sig != null)){
-        			atras = reco;
         			reco = reco.sig;
         			pos ++;
         		}
@@ -164,10 +169,25 @@ public class listaOrdenada {
     public void imprimir () {
         Nodo reco = raiz;
         while (reco != null) {
-            System.out.print (reco.alumno);
+            System.out.println(reco.alumno.toString());
             reco = reco.sig;
         }
-        System.out.println();
     }
     
+    
+    public static void main(String[] args){
+    	listaOrdenada lista = new listaOrdenada();
+    	Alumno juan = new Alumno("juan", "gutierrez", 21, 42647475, "futbol");
+    	Alumno pedro = new Alumno("pedro", "dieguez", 23, 42645367, "rugby");
+    	Alumno jose = new Alumno("jose", "alvarez", 20, 426754367, "rugby");
+    	Alumno maria = new Alumno("maria", "ramirez", 19, 42634367, "rugby");
+    	lista.insertar(juan);
+    	lista.insertar(pedro);
+    	lista.insertar(maria);
+    	lista.insertar(jose);
+    	lista.imprimir();
+    	return;
+    }
 }
+
+//compareTo() devuelve 0 si las cadenas son iguales, un numero negatico si la primera es menor y positivo si es mayor
