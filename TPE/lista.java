@@ -11,6 +11,7 @@ public class lista<T> {
 	void insertar(elementoLista nuevoElemento){
 		//Creo el nodo y le inserto la informacion
         nodo<T> nuevo = new nodo<T>(nuevoElemento);
+        System.out.println("se inserta " + nuevoElemento);
 
       
         if (raiz == null) {
@@ -18,6 +19,7 @@ public class lista<T> {
         } else if(raiz != null) {
         
         	//Reviso si tengo que insertarlo en el primer elemento
+        	System.out.println( raiz.elemento.getNombre() + " vs " + nuevoElemento.getNombre() +raiz.elemento.getParametro1().compareTo(nuevoElemento.getParametro1()));
             if ( raiz.elemento.getParametro1().compareTo(nuevoElemento.getParametro1()) > 0) {
                 nuevo.sig = raiz;
                 raiz = nuevo;
@@ -26,6 +28,7 @@ public class lista<T> {
             nodo<T> reco = raiz;
             nodo<T> ant = reco;
             
+            System.out.println("eco");
             //Entro en while hasta que encuentre la posicion o llegue al final de la lista
             while ( (raiz.elemento.getParametro1().compareTo(nuevoElemento.getParametro1()) < 0) && (reco.sig != null) ) {
             	reco = reco.sig;
@@ -134,6 +137,28 @@ public class lista<T> {
             System.out.println(a);
         }
     }
+    
+    public int cantHijos(){
+    	int largo = 0;
+        MyIterator<T> iterator = new MyIterator<T>(this.raiz);
+        while (iterator.hasNext()){
+            iterator.next();
+            largo ++;
+        }
+        return largo;
+    }
+
+	@Override
+	public String toString() {
+		MyIterator<T> iterator = new MyIterator<T>(this.raiz);
+		String b = "-" ;
+        while (iterator.hasNext()){
+            elementoLista a = (elementoLista) iterator.next();
+            b = "\r" + b + "\n" + a;
+        }
+		return b;
+	}
+    
     
     	
     

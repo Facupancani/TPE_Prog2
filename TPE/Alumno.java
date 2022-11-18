@@ -16,9 +16,6 @@ public class Alumno extends elementoLista {
 		return nombre;
 	}
 	
-	public void imprimir(){
-		System.out.println("nombre: " + nombre + "apellido" + apellido);
-	}
 	
 	public Alumno(String Nombre, String Apellido, int Edad, int dni, String Intereses){
 		nombre = Nombre;
