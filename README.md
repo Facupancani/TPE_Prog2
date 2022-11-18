@@ -3,4 +3,4 @@
 TO DO:
 
 Falta implementar ultimos 2 puntos del ej 1
-Corregir el imprimir
+Revisar consigna ejercicios de ocurrencias
