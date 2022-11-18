@@ -1,3 +1,5 @@
+package TPE;
+
 
 public class listaOrdenada {
 
@@ -55,7 +57,6 @@ public class listaOrdenada {
 			                	while( (reco.alumno.nombre.compareTo(nuevoAlumno.nombre) < 0) && (reco.sig != null) && (reco.sig.alumno.comparar(nuevoAlumno) == 0 )){
 			                		reco = reco.sig;
 			                	}
-			                	System.out.println(reco.alumno.nombre.compareTo(nuevoAlumno.nombre));
 			                	if (reco.alumno.nombre.compareTo(nuevoAlumno.nombre) > 0){	
 				                	nuevo.sig = ant.sig;
 				                	ant.sig = nuevo;

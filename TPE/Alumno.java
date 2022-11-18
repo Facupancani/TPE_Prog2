@@ -1,10 +1,24 @@
-public class Alumno {
+package TPE;
+
+
+public class Alumno extends elementoLista {
 
 	String nombre;
 	String apellido;
 	int edad;
 	int DNI;
 	String intereses;
+
+	public String getParametro1(){
+		return apellido;
+	}
+	public String getParametro2(){
+		return nombre;
+	}
+	
+	public void imprimir(){
+		System.out.println("nombre: " + nombre + "apellido" + apellido);
+	}
 	
 	public Alumno(String Nombre, String Apellido, int Edad, int dni, String Intereses){
 		nombre = Nombre;
@@ -30,4 +44,6 @@ public class Alumno {
 	public String getApellido() {
 		return apellido;
 	}
+
+
 }
