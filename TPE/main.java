@@ -1,10 +1,9 @@
 package TPE;
 
+public class Main {
 
-public class main {
-
-	public static void main(String[] args){
-    	listaOrdenada lista = new listaOrdenada();
+    public static void main(String[] args){
+    	lista lista = new lista();
     	Alumno juan = new Alumno("juan", "gutierrez", 21, 32647475, "futbol");
     	Alumno alan = new Alumno("alan", "dieguez", 19, 40634353, "rugby");
     	Alumno jose = new Alumno("jose", "alvarez", 20, 436754367, "voley");
@@ -15,7 +14,7 @@ public class main {
     	lista.insertar(jose);
     	lista.insertar(alan);
     	lista.insertar(nico);
-    	lista.imprimir();
-    	return;
+    	lista.mostrarLista();
     }
+    
 }
