@@ -3,7 +3,6 @@ public class listaOrdenada {
 
 	class Nodo {
 		Alumno alumno;
-		int info;
         Nodo sig;
     }
     
@@ -17,16 +16,13 @@ public class listaOrdenada {
     void insertar(Alumno nuevoAlumno){
     	
     	//Creo el nodo y le inserto la informacion
-        Nodo nuevo = new Nodo ();
+        Nodo nuevo = new Nodo();
         nuevo.alumno = nuevoAlumno;
-        nuevo.info = 1;
-        System.out.println("se inserta a: " + nuevo.alumno.nombre);
 
         
         //Si la lista esta vacia lo inserto en la raiz de la lista.
         if (raiz == null) {
             raiz = nuevo;
-            System.out.println("se inserta en el primer elemento");
         } else if(raiz != null) {
 
         	//Reviso si tengo que insertarlo en el primer elemento
@@ -47,34 +43,38 @@ public class listaOrdenada {
 		                if (reco.alumno.comparar(nuevoAlumno) > 0) {
 		                	nuevo.sig = ant.sig;
 		                	ant.sig = nuevo;
-		                	System.out.println("se inserta al encontrar un mayor");
 		                }
 		                
 		                if((reco.alumno.comparar(nuevoAlumno) < 0) && reco.sig == null){
 		                	reco.sig = nuevo;
-		                	System.out.println("se inserta al final de la lista");
 		                }
 		                
 		                
 		                //si encuentro apellidos iguales, ordeno por nombre
 		                if (reco.alumno.comparar(nuevoAlumno) == 0 ) {		
-		                	System.out.println("apellidos iguales");
-			                	while( (reco.alumno.comparar(nuevoAlumno) > 0) && (reco.sig != null)){
+			                	while( (reco.alumno.nombre.compareTo(nuevoAlumno.nombre) < 0) && (reco.sig != null) && (reco.sig.alumno.comparar(nuevoAlumno) == 0 )){
 			                		reco = reco.sig;
 			                	}
-			                	nuevo.sig = reco.sig;
-			                	reco.sig = nuevo;
+			                	System.out.println(reco.alumno.nombre.compareTo(nuevoAlumno.nombre));
+			                	if (reco.alumno.nombre.compareTo(nuevoAlumno.nombre) > 0){	
+				                	nuevo.sig = ant.sig;
+				                	ant.sig = nuevo;
+			                	}
+			                	if( (reco.alumno.nombre.compareTo(nuevoAlumno.nombre) < 0) && (reco.sig.alumno.comparar(nuevoAlumno) != 0 )){
+			                		nuevo.sig = reco.sig;
+			                		reco.sig = nuevo;
+			                	}
+			                	
 		                }	            
         }
     }
     
     //Elimina un nodo en una determinada posicion de la lista
     void eliminarPos(int pos){
-    	int actual = 0;
+    	int actual = 1;
     	Nodo reco = raiz;
     	Nodo atras = raiz;
     	while((pos != actual) && (reco.sig != null)){
-    		pos ++;
     		actual ++;
     		atras = reco;
     		reco = reco.sig;
@@ -90,7 +90,7 @@ public class listaOrdenada {
             return;
         } 
     	else{
-        	if(ocurrencia == raiz.info){
+        	if(ocurrencia == raiz.alumno.edad){
         		raiz = raiz.sig;
         	}
         	else{
@@ -99,7 +99,7 @@ public class listaOrdenada {
         		
         		//Entro en while hasta encontrar el dni o llegar al final de la misma
         		while(reco.sig != null){
-	        		if(ocurrencia == reco.info){
+	        		if(ocurrencia == reco.alumno.edad){
 	        			atras.sig = reco.sig;
 	        		}
 	        		atras = reco;
@@ -115,17 +115,17 @@ public class listaOrdenada {
         }
     	else{
     		int pos = 1;
-    		if (raiz.info == ocurrencia){
+    		if (raiz.alumno.edad == ocurrencia){
     			return pos;
     		}
     		else{
     			Nodo reco = raiz;
         		
-        		while((reco.info != ocurrencia) && (reco.sig != null)){
+        		while((reco.alumno.edad != ocurrencia) && (reco.sig != null)){
         			reco = reco.sig;
         			pos ++;
         		}
-        		if(reco.info == ocurrencia){
+        		if(reco.alumno.edad == ocurrencia){
         			return pos;
         		}
     		}
@@ -172,19 +172,22 @@ public class listaOrdenada {
             System.out.println(reco.alumno.toString());
             reco = reco.sig;
         }
+        System.out.println("----------------");
     }
     
     
     public static void main(String[] args){
     	listaOrdenada lista = new listaOrdenada();
-    	Alumno juan = new Alumno("juan", "gutierrez", 21, 42647475, "futbol");
-    	Alumno pedro = new Alumno("pedro", "dieguez", 23, 42645367, "rugby");
-    	Alumno jose = new Alumno("jose", "alvarez", 20, 426754367, "rugby");
-    	Alumno maria = new Alumno("maria", "ramirez", 19, 42634367, "rugby");
+    	Alumno juan = new Alumno("juan", "gutierrez", 21, 32647475, "futbol");
+    	Alumno alan = new Alumno("alan", "dieguez", 19, 40634353, "rugby");
+    	Alumno jose = new Alumno("jose", "alvarez", 20, 436754367, "voley");
+    	Alumno pedro = new Alumno("pedro", "dieguez", 23, 52645367, "basquet");
+    	Alumno nico = new Alumno("nico", "peder", 19, 12345678, "paddle");
     	lista.insertar(juan);
     	lista.insertar(pedro);
-    	lista.insertar(maria);
     	lista.insertar(jose);
+    	lista.insertar(alan);
+    	lista.insertar(nico);
     	lista.imprimir();
     	return;
     }
